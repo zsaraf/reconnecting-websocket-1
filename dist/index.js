@@ -48,7 +48,7 @@ var reassignEventListeners = function (ws, oldWs, listeners) {
         });
     }
 };
-var ReconnectingWebsocket = function (url, protocols, options) {
+var ReconnectingWebsocket = function (url, protocols, options, extraHeaders) {
     var _this = this;
     if (options === void 0) { options = {}; }
     var ws;
@@ -120,7 +120,7 @@ var ReconnectingWebsocket = function (url, protocols, options) {
         log('connect');
         var oldWs = ws;
         var wsUrl = (typeof url === 'function') ? url() : url;
-        ws = new config.constructor(wsUrl, protocols);
+        ws = new config.constructor(wsUrl, protocols, extraHeaders || {});
         connectingTimeout = setTimeout(function () {
             log('timeout');
             ws.close();
